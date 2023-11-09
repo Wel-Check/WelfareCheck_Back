@@ -7,13 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class JDBCFacilitieRepository implements FacilitieRepository {
     dbConnecter dbc = new dbConnecter();
     PreparedStatement stmt = null;
     ResultSet result = null;
     private static final JDBCFacilitieRepository instance = new JDBCFacilitieRepository();
+    List<BusanWelfareFacilitie> list =null;
     BusanWelfareFacilitie busanWelfareFacilitie = null;
     String fno = null;
     String lon = null;
@@ -100,8 +103,9 @@ public class JDBCFacilitieRepository implements FacilitieRepository {
     }
 
     @Override
-    public List<BusanWelfareFacilitie> facilityNameSearch(String searchWord) {
-        List<BusanWelfareFacilitie> tmp = new ArrayList<>();
+    public  List<BusanWelfareFacilitie> facilityNameSearch(String searchword) {
+        System.out.println(searchword);
+        list = new ArrayList<>();
         busanWelfareFacilitie = null;
         fno = null;
         lon = null;
@@ -115,10 +119,9 @@ public class JDBCFacilitieRepository implements FacilitieRepository {
         lat = null;
         try {
             System.out.println("[facilitie facilitySearch] - start");
-            String query = "SELECT * FROM FACILITIE WHERE FACILITYNAME LIKE '%" + searchWord + "%'";
+            String query = "SELECT * FROM FACILITIE WHERE FACILITYNAME LIKE '%" + searchword + "%'";
             stmt = dbc.dbConnecting(query);
             result = stmt.executeQuery(query);
-
             while (result.next()) {
                 fno = result.getString("fno");
                 lon = result.getString("lon");
@@ -131,20 +134,22 @@ public class JDBCFacilitieRepository implements FacilitieRepository {
                 facilityType = result.getString("facilityType");
                 lat = result.getString("lat");
                 busanWelfareFacilitie = new BusanWelfareFacilitie(fno,lon, roadAddress, facilityName, fixedNumber, gugun, tel, basicData, facilityType, lat);
-                tmp.add(busanWelfareFacilitie);
+                System.out.println(busanWelfareFacilitie);
+                list.add(busanWelfareFacilitie);
             }
         } catch(Exception e) {
             System.out.println("시설 검색 실패" + e.toString());
         } finally {
+            System.out.println(list);
             System.out.println("[facilitie facilitySearch] - end");
             dbc.dbClose();
         }
-        return tmp;
+        return list;
     }
 
     @Override
-    public List<BusanWelfareFacilitie> findAll() {
-        List<BusanWelfareFacilitie> tmp = new ArrayList<>();
+    public List<BusanWelfareFacilitie>  findAll() {
+        list = new ArrayList<>();
         busanWelfareFacilitie = null;
         fno = null;
         lon = null;
@@ -174,7 +179,7 @@ public class JDBCFacilitieRepository implements FacilitieRepository {
                 facilityType = result.getString("facilityType");
                 lat = result.getString("lat");
                 busanWelfareFacilitie = new BusanWelfareFacilitie(fno,lon, roadAddress, facilityName, fixedNumber, gugun, tel, basicData, facilityType, lat);
-                tmp.add(busanWelfareFacilitie);
+                list.add(busanWelfareFacilitie);
             }
         } catch (SQLException e) {
             System.out.println("시설 검색 실패" + e.toString());
@@ -182,6 +187,6 @@ public class JDBCFacilitieRepository implements FacilitieRepository {
             System.out.println("[facilitie findAll] - end");
             dbc.dbClose();
         }
-        return tmp;
+        return list;
     }
 }

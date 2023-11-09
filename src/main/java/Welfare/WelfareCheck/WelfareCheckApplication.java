@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 
 import java.util.List;
+import java.util.Map;
 
 import static Welfare.WelfareCheck.domain.Facilitie.WelfareOpenAPIConnecter.getFacilitiesXml;
 
@@ -26,16 +27,16 @@ public class WelfareCheckApplication {
 		WelfareOpenAPIConnecter welfareOpenAPIConnecter = new WelfareOpenAPIConnecter();
 		welfareOpenAPIConnecter.saveDB();*/
 
-		//JDBCFacilitieRepository jdbcFacilitieRepository = JDBCFacilitieRepository.getInstance();
-		//숫자 검색
-		/*BusanWelfareFacilitie busanWelfareFacilitie = jdbcFacilitieRepository.findByNum("224");
+		/*JDBCFacilitieRepository jdbcFacilitieRepository = JDBCFacilitieRepository.getInstance();*/
+		/*//숫자 검색
+		BusanWelfareFacilitie busanWelfareFacilitie = jdbcFacilitieRepository.findByNum("224");
 		System.out.println(busanWelfareFacilitie);*/
 
-		/*//search
-		List<BusanWelfareFacilitie>list = jdbcFacilitieRepository.facilityNameSearch("장애인" );*/
+		//search
+		//Map<Long,BusanWelfareFacilitie> store = jdbcFacilitieRepository.facilityNameSearch("장애인" );
 
 		//findAll
-		/*List<BusanWelfareFacilitie> list = jdbcFacilitieRepository.findAll();*/
-		//System.out.println(list);
+		/*Map<Long,BusanWelfareFacilitie> store = jdbcFacilitieRepository.findAll();*/
+		//.out.println(store);
 	}
 }
