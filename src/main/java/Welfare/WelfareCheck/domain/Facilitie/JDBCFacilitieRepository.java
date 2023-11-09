@@ -189,4 +189,46 @@ public class JDBCFacilitieRepository implements FacilitieRepository {
         }
         return list;
     }
+    @Override
+    public List<BusanWelfareFacilitie> facilityTypeSearch(String facilityTypeWord) {
+        List<BusanWelfareFacilitie> tmp = new ArrayList<>();
+        busanWelfareFacilitie = null;
+        fno = null;
+        lon = null;
+        roadAddress = null;
+        facilityName = null;
+        fixedNumber = null;
+        gugun = null;
+        tel = null;
+        basicData = null;
+        facilityType = null;
+        lat = null;
+        try {
+            System.out.println("[facilitie facilitySearch] - start");
+            String query = "SELECT * FROM FACILITIE WHERE FACILITYTYPE LIKE '%" + facilityTypeWord + "%'";
+            stmt = dbc.dbConnecting(query);
+            result = stmt.executeQuery(query);
+
+            while (result.next()) {
+                fno = result.getString("fno");
+                lon = result.getString("lon");
+                roadAddress = result.getString("roadaddress");
+                facilityName = result.getString("facilityName");
+                fixedNumber = result.getString("fixedNumber");
+                gugun = result.getString("gugun");
+                tel = result.getString("tel");
+                basicData = result.getString("basicData");
+                facilityType = result.getString("facilityType");
+                lat = result.getString("lat");
+                busanWelfareFacilitie = new BusanWelfareFacilitie(fno,lon, roadAddress, facilityName, fixedNumber, gugun, tel, basicData, facilityType, lat);
+                tmp.add(busanWelfareFacilitie);
+            }
+        } catch(Exception e) {
+            System.out.println("시설 검색 실패" + e.toString());
+        } finally {
+            System.out.println("[facilitie facilitySearch] - end");
+            dbc.dbClose();
+        }
+        return tmp;
+    }
 }

@@ -12,12 +12,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 /**
- * v3
- * Model 도입
- * ViewName 직접 반환
+
+ v3
+ Model 도입
+ ViewName 직접 반환
  *
- * @RequestParam 사용
- * @RequestMapping -> @GetMapping, @PostMapping
+ @RequestParam 사용
+ @RequestMapping -> @GetMapping, @PostMapping
  */
 @Controller
 @RequestMapping("/welfare/facilitie")
@@ -40,5 +41,23 @@ public class SpringFacilitieController {
         List<BusanWelfareFacilitie> facilitieList = jdbcFacilitieRepository.findAll();
         model.addAttribute("facilitieList", facilitieList);
         return "members";
+    }
+    @GetMapping("/residential-facilities")
+    public String residentialFacilities(Model model) {
+        List<BusanWelfareFacilitie> facilitieList = jdbcFacilitieRepository.facilityNameSearch("주거시설");
+        model.addAttribute("facilitieList", facilitieList);
+        return "search-result";
+    }
+    @GetMapping("/rehabilitation-facilities")
+    public String rehabilitationFacilities( Model model) {
+        List<BusanWelfareFacilitie> facilitieList = jdbcFacilitieRepository.facilityNameSearch("재활시설");
+        model.addAttribute("facilitieList", facilitieList);
+        return "search-result";
+    }
+    @GetMapping("/protective-facility")
+    public String protectiveFacility( Model model) {
+        List<BusanWelfareFacilitie> facilitieList = jdbcFacilitieRepository.facilityNameSearch("보호시설");
+        model.addAttribute("facilitieList", facilitieList);
+        return "search-result";
     }
 }

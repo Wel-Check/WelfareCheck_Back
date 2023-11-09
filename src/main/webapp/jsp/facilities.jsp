@@ -14,7 +14,7 @@
 <body>
     <a href="/index.html">메인</a>
 
-    <table>
+    <table border="1">
         <thead>
         <th>fno</th>
         <th>facilityName</th>

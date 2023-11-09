@@ -8,4 +8,5 @@ public interface FacilitieRepository {
     public BusanWelfareFacilitie findByNum(String num);
     public List<BusanWelfareFacilitie> facilityNameSearch(String searchWord);
     public List<BusanWelfareFacilitie> findAll();
+    public  List<BusanWelfareFacilitie>  facilityTypeSearch(String searchWord);
 }

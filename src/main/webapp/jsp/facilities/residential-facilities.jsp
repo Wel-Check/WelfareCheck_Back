@@ -4,10 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     JDBCFacilitieRepository jdbcFacilitieRepository = JDBCFacilitieRepository.getInstance();
-
-    String searchword = request.getParameter("searchword");
-    System.out.println(searchword);
-    List<BusanWelfareFacilitie> facilities = jdbcFacilitieRepository.facilityNameSearch(searchword);
+    List<BusanWelfareFacilitie> facilities = jdbcFacilitieRepository.facilityTypeSearch("거주시설");
 %>
 <html>
 <head>
